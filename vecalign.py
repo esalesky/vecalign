@@ -117,7 +117,8 @@ def _main():
         tgt_lines = open(tgt_file, 'rt', encoding="utf-8").readlines()
         vecs1 = make_doc_embedding(tgt_sent2line, tgt_line_embeddings, tgt_lines, args.alignment_max_size)
 
-        final_alignment_types = make_alignment_types(args.alignment_max_size)
+        # src max of 2 ensures only 1-1 and 1-many alignments
+        final_alignment_types = make_alignment_types(2, args.alignment_max_size)
         logger.debug('Considering alignment types %s', final_alignment_types)
 
         stack = vecalign(vecs0=vecs0,

@@ -191,12 +191,12 @@ class DeletionKnob(object):
         return del_pen
 
 
-def make_alignment_types(max_alignment_size):
+def make_alignment_types(src_max_alignment_size, tgt_max_alignment_size):
     # return list of all (n,m) where n+m <= this
     alignment_types = []
-    for x in range(1, max_alignment_size):
-        for y in range(1, max_alignment_size):
-            if x + y <= max_alignment_size:
+    for x in range(1, src_max_alignment_size):
+        for y in range(1, tgt_max_alignment_size):
+            if x + y <= tgt_max_alignment_size:
                 alignment_types.append((x, y))
     return alignment_types
 
@@ -468,7 +468,7 @@ def compute_norms(vecs0, vecs1, num_samples, overlaps_to_use=None):
     samps_per_overlap = ceil(num_samples / overlaps_to_use)
 
     if size1 and samps_per_overlap:
-        # sample other size (from all overlaps) to compre to this side
+        # sample other size (from all overlaps) to compare to this side
         vecs1_rand_sample = np.empty((samps_per_overlap * overlaps_to_use, dim), dtype=np.float32)
         for overlap_ii in range(overlaps_to_use):
             idxs = np.random.choice(range(size1), size=samps_per_overlap, replace=True)
